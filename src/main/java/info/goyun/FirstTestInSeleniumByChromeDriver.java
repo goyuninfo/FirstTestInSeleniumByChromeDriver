@@ -1,25 +1,22 @@
 package info.goyun;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Collections;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class FirstTestInSeleniumByChromeDriver {
 
-    public static void main(String[] args) {
-//Windows users with Chocolatey installed: choco install chromedriver
-//setting the driver executable
-        System.setProperty("webdriver.chrome.driver", "C:\\ProgramData\\chocolatey\\lib\\chromedriver\\tools\\chromedriver.exe");
-//Initiating your chromedriver
-        WebDriver driver = new ChromeDriver();
-
-//Applied wait time
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-//maximize window
-        driver.manage().window().maximize();
-        final String baseURL = "https://www.goyun.info";
-        final String expectedTitle = "www.goyun.info";
+    public static void main(String[] args) throws Exception {
+        System.setProperty("webdriver.chrome.driver", "C:\\work\\testing\\chromedriver_win32\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-maximized");
+        options.setExperimentalOption("useAutomationExtension", false);
+        options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+        WebDriver driver = new ChromeDriver(options);
+        final String baseURL = "https://goyun.info";
+        final String expectedTitle = "News For You";
         String actualTitle;
 //open browser with desried URL
         driver.get(baseURL);
@@ -37,7 +34,5 @@ public class FirstTestInSeleniumByChromeDriver {
         }
 //closing the browser
         driver.close();
-
     }
-
 }
